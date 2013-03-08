@@ -13,6 +13,18 @@
 // ---------------------------------------
 
 @light: #f3f3f3;
+@dark: #111;
+@shadow: rgba(0,0,0,.1);
+@shadow-2: rgba(0,0,0,.5);
+@head-blue: #308ED0; 
+@light-grey: #D5D5D5;
+@blue: rgb(132, 91, 151);
+@white-dash: fade(white, 80%);
+@nav-highlight: rgb(132, 91, 151);
+@light-nav-highlight: lighten(@nav-highlight, 45%);
+
+// Places
+@font: "../fonts";
 
 // ---------------------------------------
 // --------------- M I X I N S  --------------
@@ -27,7 +39,56 @@
     background-image:     -ms-linear-gradient(@origin, @start, @stop);
     background-image:      -o-linear-gradient(@origin, @start, @stop);
     background-image:         linear-gradient(@origin, @start, @stop);
-    filter: ~"progid:DXImageTransform.Microsoft.gradient(startColorstr='@{start}', endColorstr='@{stop}', GradientType=0);"
+    // MS FILTER COMPATIBILITY
+    // filter: ~"progid:DXImageTransform.Microsoft.gradient(startColorstr='@{start}', endColorstr='@{stop}', GradientType=0);" 
+
+}
+
+// Inset-Effekt für Text.
+// Variablen müssen mitgegeben werden,  
+// z.B. .text-inset(1px, 0.5)
+//
+.text-inset (@loc-horiz: 1px, @trans: 1) {
+  text-shadow: 0 @loc-horiz 0 rgba(255,255,255,1);
+}
+
+// Text-Shadow
+// Normaler text-shadow-Syntax, zweiter Schatten per default unsichtbar
+//
+.text-shadow (@text-shadow1, @text-shadow2: transparent 0 0 0 ) {
+  text-shadow: @text-shadow1, @text-shadow2;
+}
+
+// Box-Shadow Mixin
+// Normaler box-shadow-Syntax, 2. + 3. Schatten per default unsichtbar
+.box-shadow (@box-shadow1, @box-shadow2: transparent 0 0 0, @box-shadow3: transparent 0 0 0 ) {
+  -webkit-box-shadow: @box-shadow1, @box-shadow2, @box-shadow3;
+     -moz-box-shadow: @box-shadow1, @box-shadow2, @box-shadow3;
+          box-shadow: @box-shadow1, @box-shadow2, @box-shadow3;
+}
+
+// Transition-Mixin
+// Variablen müssen mitgegeben werden! "all" ist per default eingestellt.
+// "translate3d" damit Safari auf iOS-Geräten in die Pötten kommt und die GPU aktiviert!
+// 
+.transition (@trans-time, @trans-grad:ease-in-out) {
+  -webkit-transform: translate3d(0,0,0);
+          transform: translate3d(0,0,0);
+  -webkit-transition: all @trans-time @trans-grad;  
+     -moz-transition: all @trans-time @trans-grad;
+      -ms-transition: all @trans-time @trans-grad;
+       -o-transition: all @trans-time @trans-grad;
+          transition: all @trans-time @trans-grad;
+}
+
+.fontface (@fontname) {
+  font-family: '@{fontname}';
+  src:url('@{font}/@{fontname}');
+  src:url('@{font}/@{fontname}.eot?#iefix') format('embedded-opentype'),
+      url('@{font}/@{fontname}.woff') format('woff'),
+      url('@{font}/@{fontname}.ttf') format('truetype');
+  font-weight: normal;
+  font-style:  normal;
 }
 
 // ---------------------------------------
@@ -37,55 +98,611 @@
 /*************************/
 /**** Allgemeines CSS ****/
 /*************************/
+@import url(http://fonts.googleapis.com/css?family=PT+Sans);
 
-body {
-	background-color: @light;
-	width: auto;
-	height: auto;
-	margin: 0;
-	padding: 0;
+// Backgrounds 
+#one {
+	background-image: url(../img/1.jpg);
 }
 
-header {
-	height: 70px;
-	.gradient(bottom);
-	display: block;
+#two {
+	background-image: url(../img/2.jpg);
+}
 
-	.logo {
-		max-width: 1024px;
-		margin: 0 auto;
-		display: block;
-	}
+#three {
+	background-image: url(../img/3.jpg);
+}
+
+#four {
+	background-image: url(../img/4.jpg);
+}
+
+#five {
+	background-image: url(../img/kon.jpg);
+}
+
+#six {
+	background-image: url(../img/last.jpg);
+}
+
+#seven {
+	background-image: url(../img/last.jpg);
+}
+
+* {
+	margin:0;
+	padding:0;
+	text-decoration:none;
+	border:0;
+}
+
+.clear {
+	clear: left;
+}
+
+a {
+	color: inherit;
+}
+
+body, html {
+	width: 100%;
+	height: 100%;
+	-webkit-font-smoothing: antialiased;
+	font-size: 16px;
 }
 
 nav {
+	z-index: 999999999;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	height: 50px;
+	.gradient();
 	margin: 0 auto;
-	.gradient(bottom);
-	text-align: center;
-	padding: 20px 0;
-	display: block;
+	.box-shadow(0 3px 6px 0 @shadow, inset 0 -2px 0 0 lighten(@dark, 80%));
 
-	.nav-link {
-		display: inline-block;
-		color: #000;
-		font-size: 1em;
-		line-height: 1.3;
-		font-family: Arial, sans-serif;
-		margin: 0 30px;
-		text-decoration: none;
+	.nav-wrapper {
+		max-width: 800px;
+		// DEBUGGING
+		// border-right: 1px solid red;
+		// border-left: 1px solid red;
+		// ENDE DEBUGGING
+		margin: 6px auto;
+		text-align: center;
+		list-style: none;
+
+		.nav-link {
+			margin-right: 5px;
+			height: 18px;
+			display: inline-block;
+			top: 0;
+			padding: 8px 10px;
+			color: lighten(@dark, 40%);
+			font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+			// text-transform: uppercase;
+			// DEBUGGING
+			background: transparent;
+			// ENDE DEBUGGING
+			font-size: 16px;
+			font-weight: 200;
+			.gradient(top, transparent, transparent);
+			.transition(0.3s);
+			border-radius: 3px;
+
+			// border-bottom: 2px solid @nav-highlight;
+
+			&:last-child {
+				margin-right: 0;
+			}
+
+			&.active{
+				color: @light;
+				.gradient(bottom, @nav-highlight, lighten(@nav-highlight, 30%));
+				box-shadow: inset 0 -1px 0 0 darken(@nav-highlight, 10%), inset 0 0 25px 0 fade(darken(@nav-highlight, 20%), 50%), 0 1px 5px 0 @shadow;
+			}
+
+			&:hover {
+				color: @blue;
+				.gradient();
+				box-shadow: 0 1px 5px 0 @shadow, inset 0 0 0 1px @shadow;
+				// background-color: fade(@nav-highlight, 60%);
+				text-shadow: 0 0 4px @light-nav-highlight;
+			}
+		}
+	}
+
+	
+}
+
+.wrapper {
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	top: 0;
+	overflow: auto;
+}
+
+.bar {
+	position: relative;
+	width: 100%;
+	background-size: cover;
+	background-attachment: fixed;
+
+	h1 {
+		font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+		text-transform: uppercase;
+		font-weight: 200;
+		display: block;
+		font-size: 2.4em;
+		position: absolute;
+		top: 260px;
+		width: 100%;
+		line-height: 1.6em;
+		color: #fff;
+		text-align: center;
+		text-shadow: 0px 0px 10px rgba(0, 0, 0, 1);
+
+		&.start {
+			top: 400px;
+		}
+
+		&.doppel {
+			top: 220px;
+		}
+
+		span {
+			font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+			font-weight: 700;
+			border-radius: 3px;
+			padding: 8px 20px;
+			background-color: fade(white, 60%);
+			box-shadow: 0 0 20px 0 @shadow;
+			text-shadow: 0px 0px 30px rgba(0, 0, 0, 0.6);
+		}
+
+		&.contact-text {
+			top: 140px;
+		}
 	}
 }
 
-section {
-	max-width: 1024px;
+.logo {
+	width: 100%;
+	height: auto;
+	max-width: 193px;
+	max-height: 213px;
 	margin: 0 auto;
+	display: block;
+	top: 150px;
+	position: relative;
+}
 
-	&.first {
-		background-color: red;
+.single {
+	max-height: 570px;
+	height: 100%;
+}
+
+.contact {
+height: 1035px;
+}
+
+.white {
+	min-height: 300px;
+	background-color: #fff;
+	-webkit-box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
+	box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
+	z-index: 800;
+	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	font-weight: 300;
+	font-size: 15px;
+	line-height: 25px;
+	color: #7E756B;
+
+	.inner {
+		padding: 55px 0 55px 0;
+		width: 800px;
+		display:block;
+		margin: 0 auto;
+
+		ul {
+			list-style-type: none;
+
+			li {
+				float: left;
+				width: 375px;
+
+				&:first-child {
+					margin-right: 30px;
+					width: 395px;
+				}
+			}
+		}
+	}
+}
+
+.for {
+	background-color: white;
+	width: 80px;
+	margin-left: 50%;
+	left: -40px;
+	display: block;
+	box-shadow: 0 4px 10px 0 @shadow;
+	position: absolute;
+	bottom: -30px;
+
+	height: 80px;
+	border-radius: 80px;
+	margin-top: -50px;
+	.transition(0.5s);
+
+	&::before {
+		content:'';
+		z-index: 2;
+		width: 100px;
+		height: 50px;
+		top: 0;
+		left: -10px;
+		background-color: white;
+		position: relative;
+		display: block;
+		.transition(0.5s);
 	}
 
-	&.head {
-		max-width: 100%;
+	&::after {
+		content:'❯';
+		display: block;
+		.transition(0.5s);
+		position: absolute;
+		height: 70px;
+		z-index: 9999999;
+		font-family: "Arial";
+		top: 20px;
+		margin-left: 50%;
+		left: -30px;
+		-webkit-transform:rotate(90deg);
+		-moz-transform:rotate(90deg);
+		color: lighten(#7E756B, 30%);
+		font-size: 25px;
+	}
+}
+
+.back {
+	background-color: white;
+	width: 80px;
+	margin-left: 50%;
+	left: -40px;
+	display: block;
+	box-shadow: 0 4px 10px 0 @shadow;
+	position: absolute;
+	top: 17px;
+
+	height: 80px;
+	border-radius: 80px;
+	margin-top: -50px;
+	.transition(0.5s);
+
+	&::before {
+		content:'';
+		z-index: 2;
+		width: 100px;
+		height: 60px;
+		top: 33px;
+		left: -10px;
+		background-color: white;
+		position: relative;
+		display: block;
+		.transition(0.5s);
+	}
+
+	&::after {
+		content:'❯';
+		display: block;
+		.transition(0.5s);
+		position: absolute;
+		height: 70px;
+		z-index: 9999999;
+		font-family: "Arial";
+		top: -15px;
+		margin-left: 50%;
+		left: 15px;
+		-webkit-transform:rotate(-90deg);
+		-moz-transform:rotate(-90deg);
+		color: lighten(#7E756B, 30%);
+		font-size: 25px;
+	}
+}
+
+/***************************/
+/***** Newsletter Form *****/
+/***************************/
+
+.newsletter-form {
+    .transition(1s);
+    opacity: 1;
+    max-width: 500px;
+    margin:0 auto;
+    padding-bottom: 100px;
+    display: block;
+position: relative;
+top: 280px;
+
+
+    fieldset {
+      opacity: 1;
+    }
+}
+
+input{
+  -webkit-appearance: none;
+  border: 1px solid @light-grey;
+  height: 40px;
+  display: block;
+  border-radius: 3px;
+  padding: 0;
+  margin: 0.8em 0 0;
+  width: 100%;
+  .transition(0.3s);
+  text-indent: 1em;
+  font-size: 13px;
+  background-color: @white-dash;
+
+  &.more-text {
+  	height: 120px;
+  }
+
+  &:required {
+    border: 1px solid @light-grey;
+  }
+
+  &:focus {
+
+    &::-webkit-input-placeholder{
+      color: @nav-highlight;
+    }
+
+    border: 1px solid @head-blue;
+    .box-shadow(0 0 7px 0 fade(@head-blue, 60%));
+    .transition(0.3s);
+    background-color: white;
+    color: @nav-highlight;
+    .text-shadow(0 1px 0 fade(@blue, 40%));
+  }
+
+}
+
+.item.short {
+	display: inline-block;
+}
+
+label {
+
+  position: relative;
+
+  select {
+    padding:10px;
+    margin: 1em 0 0;
+    color:#888;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none
+    height: 40px;
+    background-color: #fff;
+    width: 100%;
+    border-radius: 3px;
+    border: 1px solid @light-grey;
+    font-size: 13px;
+    display: inline-block;
+    -webkit-appearance:none;
+    cursor:pointer;
+  }
+
+  &::after {
+    content:'❯';
+    font-family: "Arial";
+    color: lighten(#7E756B, 30%);
+	font-size: 25px;
+    -webkit-transform:rotate(90deg);
+    -moz-transform:rotate(90deg);
+    -ms-transform:rotate(90deg);
+    transform:rotate(90deg);
+    right: 17px;
+    background-color: white;
+    top:-10px;padding-top: 8px;
+    display:block;
+    height: 30px;
+    position:absolute;
+    pointer-events:none;
+  }
+}
+  
+.bad { 
+  &::after {
+    content:'×';
+    font-size:1.4em; 
+    position: absolute;
+    font-weight: bold;
+    color: darken(#f00, 25%);
+    right: 17px;
+    bottom: 9px;
+  }
+
+  input {
+    background-color: fade(red, 40%);
+    border: 1px solid darken(#f00, 25%) !important;
+    box-shadow:0 0 4px -2px #CE5454;
+
+    &::-webkit-input-placeholder{
+      color: darken(#f00, 25%);
+    }
+  }
+}
+
+.anliegen.bad { 
+  &::after {
+    content:'×';
+    font-size:1.4em; 
+    position: absolute;
+    font-weight: bold;
+    color: darken(#f00, 25%);
+    right: 17px;
+    bottom: 48px;
+  }
+}
+
+.item {
+  position:relative;
+}
+
+button, .button {
+	padding: 12px 35px;
+	font-size: 15px;
+	color: @blue;
+	.gradient();
+	.transition(0.5s);
+	box-shadow: 0 1px 5px 0 @shadow, inset 0 0 0 1px @shadow;
+	// background-color: fade(@nav-highlight, 60%);
+	text-shadow: 0 0 4px @light-nav-highlight;
+	border-radius: 3px;
+
+	&.kontakt {
+		margin-top: 45px;
+	}
+
+	&.info {
+		margin: 20px 0 7px;
+	}
+
+	&:hover {
+		color: @light;
+		.gradient(bottom, @nav-highlight, lighten(@nav-highlight, 30%));
+		box-shadow: inset 0 -1px 0 0 darken(@nav-highlight, 10%), inset 0 0 25px 0 fade(darken(@nav-highlight, 20%), 50%), 0 1px 5px 0 @shadow;
+		text-shadow: none;
+	}
+
+
+}
+
+.pullup {
+  opacity: 0.07 !important;
+  .transition(1s);
+}
+.help {
+	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	color: @light;
+	font-weight: 400;
+	font-size: 18px;
+
+	&.hiermit {
+		margin-top: 20px;
+		font-weight: 500;
+	}
+}
+.finish {
+	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+		text-transform: uppercase;
+		font-weight: 700;
+		display: block;
+		font-size: 1.8em;
+		position: absolute;
+		top: 230px;
+		opacity: 0;
+		z-index: 0;
 		width: 100%;
-	}
+		max-width: 462px;
+		border-radius: 3px;
+		.transition(1s);
+padding: 8px 20px;
+background-color: fade(white, 60%);
+box-shadow: 0 0 20px 0 @shadow;
+			text-shadow: 0px 0px 30px rgba(0, 0, 0, 0.6);
+		line-height: 1.6em;
+		color: #fff;
+		text-align: center;
+
+		&.true {
+			opacity: 1 !important;
+			z-index: 9999999999;
+		}
+}
+
+.accordion-group {
+  margin-bottom: 15px;
+  border: 1px solid #e5e5e5;
+  -webkit-border-radius: 4px;
+     -moz-border-radius: 4px;
+          border-radius: 4px;
+          .transition(0.35s);
+}
+
+.accordion-heading {
+  border-bottom: 0;
+  display:block;
+  .transition(0.35s);
+}
+
+.accordion-heading .accordion-toggle {
+  display: block;
+  display:block;
+  padding: 8px 15px;
+  .transition(0.35s);
+}
+
+.accordion-toggle {
+  cursor: pointer;
+  display:block;
+  .transition(0.35s);
+  border-radius: 3px;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  
+
+  color: #7E756B;
+
+  &:hover {
+  	background-color: fade(@nav-highlight,30%);
+  	color: @nav-highlight;
+  }
+}
+
+.accordion-inner {
+  padding: 9px 15px;
+  display: block;
+  border-top: 1px solid #e5e5e5;
+  .transition(0.35s);
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  padding-bottom: 25px;
+
+  h3 {
+  
+  color: @nav-highlight;
+  font-weight: 700px;
+  font-size: 20px;
+	line-height: 60px;
+  }
+  p {
+  	font-weight: 300;
+  	font-size: 14px;
+  	color: @dark;
+  	margin: 15px 0;
+  }
+}
+h3 {
+  text-transform: uppercase;
+  font-size: 20px;
+  color: @nav-highlight;
+  font-weight: 700px;
+	margin-bottom: 20px;
+  }
+.collapse {
+  position: relative;
+  height: 0;
+  display: block;
+  overflow: hidden;
+  .transition(0.35s);
+
+  &.in {
+  	height: auto;
+  	.transition(0.35s);
+  }
 }
