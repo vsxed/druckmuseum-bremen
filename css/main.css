@@ -32,6 +32,9 @@
 a {
   color: inherit;
 }
+img {
+  border: none;
+}
 body,
 html {
   width: 100%;
@@ -221,6 +224,11 @@ nav .nav-wrapper .nav-link:hover {
   -o-transition: all 0.5s ease-in-out;
   transition: all 0.5s ease-in-out;
 }
+.for img {
+  left: 21px;
+  top: 45px;
+  position: absolute;
+}
 .for::before {
   content: '';
   z-index: 2;
@@ -238,28 +246,6 @@ nav .nav-wrapper .nav-link:hover {
   -ms-transition: all 0.5s ease-in-out;
   -o-transition: all 0.5s ease-in-out;
   transition: all 0.5s ease-in-out;
-}
-.for::after {
-  content: '❯';
-  display: block;
-  -webkit-transform: translate3d(0, 0, 0);
-  transform: translate3d(0, 0, 0);
-  -webkit-transition: all 0.5s ease-in-out;
-  -moz-transition: all 0.5s ease-in-out;
-  -ms-transition: all 0.5s ease-in-out;
-  -o-transition: all 0.5s ease-in-out;
-  transition: all 0.5s ease-in-out;
-  position: absolute;
-  height: 70px;
-  z-index: 9999999;
-  font-family: "Arial";
-  top: 20px;
-  margin-left: 50%;
-  left: -30px;
-  -webkit-transform: rotate(90deg);
-  -moz-transform: rotate(90deg);
-  color: #c6c1bc;
-  font-size: 25px;
 }
 .back {
   background-color: white;
@@ -281,6 +267,14 @@ nav .nav-wrapper .nav-link:hover {
   -o-transition: all 0.5s ease-in-out;
   transition: all 0.5s ease-in-out;
 }
+.back img {
+  position: absolute;
+  top: 8px;
+  -webkit-transform: rotate(180deg);
+  -moz-transform: rotate(180deg);
+  transform: rotate(180deg);
+  left: 20px;
+}
 .back::before {
   content: '';
   z-index: 2;
@@ -298,28 +292,6 @@ nav .nav-wrapper .nav-link:hover {
   -ms-transition: all 0.5s ease-in-out;
   -o-transition: all 0.5s ease-in-out;
   transition: all 0.5s ease-in-out;
-}
-.back::after {
-  content: '❯';
-  display: block;
-  -webkit-transform: translate3d(0, 0, 0);
-  transform: translate3d(0, 0, 0);
-  -webkit-transition: all 0.5s ease-in-out;
-  -moz-transition: all 0.5s ease-in-out;
-  -ms-transition: all 0.5s ease-in-out;
-  -o-transition: all 0.5s ease-in-out;
-  transition: all 0.5s ease-in-out;
-  position: absolute;
-  height: 70px;
-  z-index: 9999999;
-  font-family: "Arial";
-  top: -15px;
-  margin-left: 50%;
-  left: 15px;
-  -webkit-transform: rotate(-90deg);
-  -moz-transform: rotate(-90deg);
-  color: #c6c1bc;
-  font-size: 25px;
 }
 /***************************/
 /***** Newsletter Form *****/
