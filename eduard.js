@@ -1,3 +1,4 @@
+$(document).ready(function() {
 $('form').on('blur', 'input[required], input.optional', validator.checkField);
 $('form').submit(function(e){
           e.preventDefault();
@@ -16,7 +17,7 @@ $('form').submit(function(e){
 
 
 // DA OBEN BITTE
-$(document).ready(function() {
+
   function filterPath(string) {
   return string
     .replace(/^\//,'')
