@@ -18,7 +18,7 @@ $('form').submit(function(e){
 
 // DA OBEN BITTE
 
-$('.smoothie, .for, .back').click(function() {
+$('a').click(function() {
     if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') 
         || location.hostname == this.hostname) {
 
